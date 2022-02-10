@@ -3,7 +3,7 @@ import pytest
 from wayf.cruncher import NumbersCruncher
 
 
-class TestCruncher:
+class TestCruncherInit:
 
     pair_input_output = [
         ([1721, 979, 366, 299, 675, 1456], 2020, (1721, 299)),

@@ -19,19 +19,10 @@ jobs:
           cache: 'pip'
           cache-dependency-path: '**/requirements-dev.txt'
       #----------------------------------------------
-      #                cache venv
-      #----------------------------------------------
-      - name: Cache venv
-        id: cache-poetry-dependencies
-        uses: actions/cache@v2
-        with:
-          path: "**/.venv"
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-      #----------------------------------------------
       #             install dependencies
       #----------------------------------------------
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-dev.txt
   code-check:
     name: Code checks
     runs-on: ubuntu-latest
@@ -57,7 +48,7 @@ jobs:
       # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-dev.txt
       #----------------------------------------------
       #              Run each pre-commit check
       #----------------------------------------------

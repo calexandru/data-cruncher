@@ -22,10 +22,10 @@ jobs:
       #             install dependencies
       #----------------------------------------------
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-dev.txt
       #----------------------------------------------
       #              Run test suite
       #----------------------------------------------
       - name: Run tests
         run: |
-          pytest -vv --cov=app --cov-fail-under=80
+          pytest -vv --cov=wayf --cov-fail-under=80
