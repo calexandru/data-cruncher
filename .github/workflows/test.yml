@@ -1,0 +1,31 @@
+name: Test
+
+on: pull_request
+
+jobs:
+  test:
+    name: Run UTs
+    runs-on: ubuntu-latest
+    steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          cache: 'pip'
+          cache-dependency-path: '**/requirements-dev.txt'
+      #----------------------------------------------
+      #             install dependencies
+      #----------------------------------------------
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      #----------------------------------------------
+      #              Run test suite
+      #----------------------------------------------
+      - name: Run tests
+        run: |
+          pytest -vv --cov=app --cov-fail-under=80

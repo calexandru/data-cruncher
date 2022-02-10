@@ -1,6 +1,6 @@
 import argparse
-import sys
 import math
+import sys
 
 from cruncher import NumbersCruncher
 

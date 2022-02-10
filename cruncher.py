@@ -1,5 +1,7 @@
 import logging
-from typing import Optional, Tuple, List
+from typing import List
+from typing import Optional
+from typing import Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -12,8 +14,9 @@ class NumbersCruncher:
     def find_pair(self) -> Optional[Tuple[int, int]]:
         """Find first pair of numbers that add up to the target sum.
 
-        Returns:
+        Returns
             Optional[Tuple[int, int]]: pair of numbers found or None
+
         """
         missing_pair_number = set()
         for number in self.numbers:
@@ -22,17 +25,21 @@ class NumbersCruncher:
                 return self.target_sum - number, number
             else:
                 missing_pair_number.add(self.target_sum - number)
+        return None
 
     def find_trio(self) -> Optional[Tuple[int, int, int]]:
         """Find first group of three numbers that add up to the target sum.
 
-        Returns:
+        Returns
             Optional[Tuple[int, int, int]]: tuple with the three numbers found
+
         """
         for i, number in enumerate(self.numbers):
-            two_pair_target_sum = self.target_sum - number
-            if two_pair := NumbersCruncher(self.numbers[i + 1 :], two_pair_target_sum).find_pair():
-                return number, *two_pair
+            pair_target_sum = self.target_sum - number
+            next = i + 1
+            if pair := NumbersCruncher(self.numbers[next:], pair_target_sum).find_pair():
+                return number, *pair
+        return None
 
     @classmethod
     def from_file(cls, file_path: str, target_sum: int):
@@ -42,8 +49,9 @@ class NumbersCruncher:
             file_path (str): relative path to the numbers input file
             target_sum (int): Sum amount
 
-        Returns:
+        Returns
             [type]: Instance of NumberCruncher
+
         """
         try:
             with open(file_path, "r") as f:

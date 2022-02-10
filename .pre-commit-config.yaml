@@ -21,7 +21,7 @@ repos:
         entry: pydocstyle
         args:
           [
-            "--ignore=D100,D101,D103,D107",
+            "--ignore=D100,D101,D102,D103,D104,D107,D213,D407",
           ]
         language: system
         types: [python]
@@ -55,7 +55,7 @@ repos:
         types: [python]
       - id: mypy
         name: Python typing
-        entry: poetry run mypy
+        entry: mypy
         args: ["--ignore-missing-imports"]
         pass_filenames: true
         language: system
