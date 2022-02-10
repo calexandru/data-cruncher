@@ -1,3 +1,6 @@
+from unittest.mock import mock_open
+from unittest.mock import patch
+
 import pytest
 
 from wayf.cruncher import NumbersCruncher
@@ -5,32 +8,19 @@ from wayf.cruncher import NumbersCruncher
 
 class TestCruncherInit:
 
-    pair_input_output = [
-        ([1721, 979, 366, 299, 675, 1456], 2020, (1721, 299)),
-        ([1, 2, 3, 4, 5], 9, (4, 5)),
-        ([1, 2, 3, 4, 5], 10, None),
-        ([1, 2, 3, 4, 5], 2, None),
-        ([1, 2, 3, 4, 5], 3, (1, 2)),
-        ([1, 2, 3, 6, 5], 6, (1, 5)),
-        ([], 100, None),
-        ([100], 100, None),
+    cruncher_file_input_output = [
+        ("1721\n979\n366\n299\n675\n1456", [1721, 979, 366, 299, 675, 1456], False),
+        ("   1721\n 979 \n   366 \n299 \n\n", [1721, 979, 366, 299], False),
+        ("", [], False),
+        ("asd\nbcd", None, True),
     ]
 
-    @pytest.mark.parametrize("pair_input, pair_sum, pair_output", pair_input_output)
-    def test_find_pair(self, pair_input, pair_sum, pair_output):
-        assert NumbersCruncher(pair_input, pair_sum).find_pair() == pair_output
-
-    trio_input_output = [
-        ([1721, 979, 366, 299, 675, 1456], 2020, (979, 366, 675)),
-        ([1, 2, 3, 8, 5], 10, (2, 3, 5)),
-        ([1, 2, 3, 4, 5], 3, None),
-        ([1, 2, 3, 4, 5], 2000, None),
-        ([1, 2, 3, 6, 5], 6, (1, 2, 3)),
-        ([], 100, None),
-        ([100], 100, None),
-        ([50, 50], 100, None),
-    ]
-
-    @pytest.mark.parametrize("trio_input, trio_sum, trio_output", trio_input_output)
-    def test_find_trio(self, trio_input, trio_sum, trio_output):
-        assert NumbersCruncher(trio_input, trio_sum).find_trio() == trio_output
+    @pytest.mark.parametrize("file_input, numbers_output, should_fail", cruncher_file_input_output)
+    def test_from_file(self, file_input, numbers_output, should_fail):
+        with patch("builtins.open", mock_open(read_data=file_input)):
+            cruncher = NumbersCruncher.from_file("fake_file", 2020)
+            if should_fail:
+                assert cruncher is None
+            else:
+                assert cruncher
+                assert cruncher.numbers == numbers_output
