@@ -1,10 +1,18 @@
 import argparse
+import logging
 import math
-import sys
+import os
 
-from cruncher import NumbersCruncher
+from .cruncher import NumbersCruncher
+
+logger = logging.getLogger(__name__)
+
 
 DEFAULT_TARGET_SUM = 2020
+CURRENT_DIR = os.path.dirname(__file__)
+a = os.path.join(CURRENT_DIR, "input/default.txt")
+print(f"x: {CURRENT_DIR}")
+print(f"x: {a}")
 
 
 class PairMode:
@@ -12,7 +20,7 @@ class PairMode:
     TRIO = "trio"
 
 
-def cli():
+def main():
     parser = argparse.ArgumentParser(description="CLI tool")
     parser.add_argument(
         "-s",
@@ -25,7 +33,7 @@ def cli():
         "-f",
         "--input_file",
         type=str,
-        default="input/default.txt",
+        default=os.path.join(CURRENT_DIR, "input/default.txt"),
         help="Path to input file with numbers (defaults to local file).",
     )
     parser.add_argument(
@@ -44,11 +52,8 @@ def cli():
             print(math.prod(found_numbers))
         else:
             print("No group found")
-            sys.exit(1)
     else:
         # failed to initialize cruncher
-        sys.exit(1)
-
-
-if __name__ == "__main__":
-    cli()
+        logger.error("Failed to initialize Cruncher")
+        return 1
+    return 0
