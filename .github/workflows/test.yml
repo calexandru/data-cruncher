@@ -22,7 +22,7 @@ jobs:
       #             install dependencies
       #----------------------------------------------
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-dev.txt
       #----------------------------------------------
       #              Run test suite
       #----------------------------------------------
