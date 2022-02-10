@@ -3,16 +3,13 @@ import logging
 import math
 import os
 
-from .cruncher import NumbersCruncher
+from wayf.cruncher import NumbersCruncher
 
 logger = logging.getLogger(__name__)
 
 
 DEFAULT_TARGET_SUM = 2020
 CURRENT_DIR = os.path.dirname(__file__)
-a = os.path.join(CURRENT_DIR, "input/default.txt")
-print(f"x: {CURRENT_DIR}")
-print(f"x: {a}")
 
 
 class PairMode:
