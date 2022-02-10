@@ -24,7 +24,7 @@ Project requirements: python 3.8+
 
 > note:: You need to have Python 3.8+ installed and accessible in your path
 
-* ``pip install git+https://github.com/calexandru/data-cruncher/tree/master ``
+* ``pip install git+https://github.com/calexandru/data-cruncher@master``
 * ``wfcli -f ~/input/input1.txt``
 * ``wfcli -f ~/input/input1.txt -m trio``
 
